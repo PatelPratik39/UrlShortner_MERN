@@ -2,6 +2,7 @@ import express, { urlencoded } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDb from "../config/dbConfig";
+import shortUrl from "../routes/shortUrl";
 
 dotenv.config();
 connectDb();
@@ -16,10 +17,9 @@ app.use(
     credentials: true
   })
 )
+app.use("/api/", shortUrl)
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+// routes
 
 app.listen(PORT, () => {
   console.log(`Server is up and running at port ${PORT}`);
