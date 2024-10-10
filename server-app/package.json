@@ -2,10 +2,11 @@
   "name": "url-shortner-api",
   "version": "1.0.0",
   "description": "This project contain url shortner apis",
-  "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "build": "npx tsc",
+    "start": "npx tsc && node ./dist/server.js",
+    "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pratik Patel",
@@ -15,9 +16,14 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mongoose": "^8.7.1",
-    "nanoid": "^3.0.0"
+    "nanoid": "^3.0.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^22.7.5",
     "nodemon": "^3.1.7",
     "typescript": "^5.6.3"
   }
