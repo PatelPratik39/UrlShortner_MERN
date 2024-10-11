@@ -9,17 +9,35 @@ interface IFormContainerProps {
 const FormContainer: React.FunctionComponent<IFormContainerProps> = (props) => {
   const { updateReloadState } = props;
   const [fullUrl, setFullUrl] = React.useState<string>("");
+  const [message, setMessage] = React.useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      // Reset message before attempting to submit
+      setMessage("");
+
       await axios.post(`${serverUrl}/shorturl`, {
         fullUrl: fullUrl
       });
-      setFullUrl("")
-      updateReloadState();;
-    } catch (error) {
-      console.error(error);
+
+      // Clear the input and update parent component state
+      setFullUrl("");
+      updateReloadState();
+
+      // Show success message
+      setMessage("URL successfully added!");
+    } catch (error: any) {
+      console.log("Error:", error);  // Add this for debugging
+      // Handle Axios errors based on status code
+      if (error.response && error.response.status === 409) {
+        const existingUrl = error.response.data.url.shortUrl;
+        setMessage(`URL already exists! Short URL: ${existingUrl}`);
+      } else {
+        // Handle other errors
+        setMessage("Something went wrong, please try again!");
+        console.error(error);
+      }
     }
   };
 
@@ -38,12 +56,11 @@ const FormContainer: React.FunctionComponent<IFormContainerProps> = (props) => {
           <div className="flex">
             <div className="relative w-full">
               <div className="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none">
-                {" "}
                 urlshortner.link /
               </div>
               <input
                 type="text"
-                placeholder="Entet your URL link"
+                placeholder="Enter your URL link"
                 required
                 className="block w-full p-4 ps-32 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
                 value={fullUrl}
@@ -60,12 +77,39 @@ const FormContainer: React.FunctionComponent<IFormContainerProps> = (props) => {
             </div>
           </div>
         </form>
+
+        {/* Display the message to the user */}
+        {message && (
+          <div className="mt-4 text-white text-lg">
+            {message}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default FormContainer;
+
+
+
+
+// const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
+//   try {
+//     setMessage("");
+//     await axios.post(`${serverUrl}/shorturl`, {
+//       fullUrl: fullUrl
+//     });
+//     setFullUrl("")
+//     updateReloadState();
+//     setMessage("URL successfully added!");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+
 
 {
   /* <div className="container mx-auto p-2">

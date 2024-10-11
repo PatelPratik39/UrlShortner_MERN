@@ -84,6 +84,7 @@ const DataTable: React.FunctionComponent<IDataTableProps> = (props) => {
             await navigator.clipboard.writeText(`${serverUrl}/shortUrl/${url}`)
             alert(`URL copied : ${serverUrl}/shortUrl/${url} `)
         } catch (error) {
+            alert(`URL already exists ${serverUrl}/shortUrl/${url} `)
             console.error(error);
         }
     }

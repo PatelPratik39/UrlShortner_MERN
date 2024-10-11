@@ -13,7 +13,7 @@ const Container: React.FunctionComponent<IContainerProps> = () => {
 
     const [data, setData] = React.useState<UrlData[]>([]);
     const [reload, setReload] = React.useState<boolean>(false);
-
+    
     const updateReload = (): void => {
         setReload(true)
     }

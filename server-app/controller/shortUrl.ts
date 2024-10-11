@@ -10,8 +10,8 @@ export const createUrl = async (
     const { fullUrl } = req.body;
     const urlFound = await urlModel.find({ fullUrl: req.body.fullUrl });
     if (urlFound.length > 0) {
-      res.status(409);
-      res.send(urlFound);
+      res.status(409).send({ message: "Duplicate Url !!" , url: urlFound  });
+      // res.send(urlFound);
     } else {
       const shortUrl = await urlModel.create({ fullUrl });
       res.status(201).send(shortUrl);
@@ -26,16 +26,20 @@ export const getAllUrl = async (
   res: express.Response
 ) => {
   try {
-    const shortUrls = await urlModel.find();
-    if (shortUrls.length < 0) {
-      res.status(404).send({ message: "short Urls not found" });
+    const shortUrls = await urlModel.find().sort({ createdAt: -1 });
+    // console.log(shortUrls);  // Log to check if the sorting is correct
+    if (shortUrls.length === 0) {
+      res.status(404).send({ message: "Short URLs not found" });
     } else {
       res.status(200).send(shortUrls);
     }
   } catch (error) {
-    res.status(500).send({ message: " Something went wrong!!" });
+    console.error("Error fetching URLs:", error);  // Log the error for more details
+    res.status(500).send({ message: "Something went wrong!!" });
   }
 };
+
+
 
 export const getUrl = async (req: express.Request, res: express.Response) => {
   try {
