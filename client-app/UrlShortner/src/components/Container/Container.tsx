@@ -12,6 +12,11 @@ interface IContainerProps {
 const Container: React.FunctionComponent<IContainerProps> = () => {
 
     const [data, setData] = React.useState<UrlData[]>([]);
+    const [reload, setReload] = React.useState<boolean>(false);
+
+    const updateReload = (): void => {
+        setReload(true)
+    }
 
     const fetchTableData = async () => {
         const resposne = await axios.get(`${serverUrl}/shortUrl`)
@@ -22,11 +27,11 @@ const Container: React.FunctionComponent<IContainerProps> = () => {
 
     React.useEffect(() => {
         fetchTableData();
-    }, [])
+    }, [reload])
 
 
-    return <div><FormContainer />
-        <DataTable data={data}/></div>
+    return <div><FormContainer updateReloadState={updateReload} />
+        <DataTable updateReloadState={updateReload} data={data} /></div>
 };
 
 export default Container;

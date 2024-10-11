@@ -6,10 +6,11 @@ import axios from 'axios';
 
 interface IDataTableProps {
     data: UrlData[];
+    updateReloadState: () => void;
 }
 
 const DataTable: React.FunctionComponent<IDataTableProps> = (props) => {
-    const { data } = props;
+    const { data, updateReloadState } = props;
     console.log("Data is datatable", data);
 
     const renderTableData = () => {
@@ -89,7 +90,7 @@ const DataTable: React.FunctionComponent<IDataTableProps> = (props) => {
     const deleteUrl = async (id: string) => {
         const response = await axios.delete(`${serverUrl}/shortUrl/${id}`);
         console.log(response);
-        // updateReloadState();
+        updateReloadState();
     };
     return (
         <div className='conatainer mx-auto pt-2 pb-10'>
