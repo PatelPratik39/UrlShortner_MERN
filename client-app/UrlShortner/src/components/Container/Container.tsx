@@ -22,6 +22,7 @@ const Container: React.FunctionComponent<IContainerProps> = () => {
         const resposne = await axios.get(`${serverUrl}/shortUrl`)
         console.log("The Response from server is : ", resposne);
         setData(resposne.data)
+        setReload(false)
         // console.log("Data : ", data);
     }
 

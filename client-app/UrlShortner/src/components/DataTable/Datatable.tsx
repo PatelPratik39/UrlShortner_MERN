@@ -24,7 +24,7 @@ const DataTable: React.FunctionComponent<IDataTableProps> = (props) => {
                     </td>
                     <td className='px-6 py-3 break-words'>
                         <Link to={`${serverUrl}/shortUrl/${item.shortUrl}`} target='_blank' rel='noreferrer noopener'>
-                            {item.fullUrl}
+                            {item.shortUrl}
                         </Link>
                     </td>
                     <td className='px-6 py-3 '>
