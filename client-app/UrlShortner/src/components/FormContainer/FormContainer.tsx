@@ -33,6 +33,7 @@ const FormContainer: React.FunctionComponent<IFormContainerProps> = (props) => {
       if (error.response && error.response.status === 409) {
         const existingUrl = error.response.data.url.shortUrl;
         setMessage(`URL already exists! Short URL: ${existingUrl}`);
+        alert(`URL already exists! Short URL: ${existingUrl}`);
       } else {
         // Handle other errors
         setMessage("Something went wrong, please try again!");
