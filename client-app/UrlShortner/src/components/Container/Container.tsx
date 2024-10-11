@@ -5,9 +5,7 @@ interface IContainerProps {
 }
 
 const Container: React.FunctionComponent<IContainerProps> = () => {
-    return (
-        <div><FormContainer /></div>
-    );
+    return <div><FormContainer /></div>
 };
 
 export default Container;

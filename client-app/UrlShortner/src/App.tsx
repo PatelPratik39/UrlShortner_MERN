@@ -9,9 +9,9 @@ interface IAppProps {
 const App: React.FunctionComponent<IAppProps> = () => {
   return (
     <>
-    <Header />
-    <Container />
-    <Footer />
+      <Header />
+      <Container />
+      <Footer />
     </>
   );
 };
